@@ -1,0 +1,71 @@
+select DISTINCT `driverid`,`driverslicensestate` from myDataSource
+
+select DISTINCT `pedestrianid`,`pedestriantype` from myDataSource
+
+select DISTINCT `vehicleid`,`vehiclemake`,`vehiclemodel`,`vehicleyear`,`vehiclebodytype`from myDataSource
+
+select DISTINCT `crossstreetname`,`weather`,`light`,`speedlimit` from myDataSource
+
+select DISTINCT `reportNumber`,`driverid`,`vehicleid`,`pedestrianid`,`crossstreetname`,`crashdate`,`agencyname`,`localcasenumber`,`acrsreporttype`,`collisiontype`,`trafficcontrol`,`driversubstanceabuse`,`nonmotoristsubstanceabuse`,`driversinjuryseverity`,`speedlimit`,`pedestriansinjuryseverity` from myDataSource
+
+
+
+-- create database final_project1;
+
+use final_project1;
+
+CREATE TABLE PedestrianDim (
+    pedestrianid VARCHAR(255) PRIMARY KEY,
+    pedestriantype VARCHAR(250)-- Assuming it's boolean-like field represented as 'Yes' or 'No'
+);
+
+CREATE TABLE VehicleDim (
+    vehicleid VARCHAR(255) PRIMARY KEY,
+    vehiclemake VARCHAR(250),
+    vehiclemodel VARCHAR(250),
+    vehicleyear INT,
+    vehiclebodytype VARCHAR(250)
+);
+
+CREATE TABLE LocationDim (
+    crashdate date,
+    latitude DECIMAL(10, 10),
+    longitude DECIMAL(10, 10),
+    weather VARCHAR(255),
+    light VARCHAR(255),
+    crossstreetname varchar(100),
+    speedlimit int,
+    PRIMARY KEY (crossstreetname, crashdate)
+);
+
+CREATE TABLE DriverDim (
+    driverid VARCHAR(255) PRIMARY KEY,
+    driverslicensestate VARCHAR(250)
+);
+
+
+
+
+CREATE TABLE CrashFact (
+    reportNumber VARCHAR(255) PRIMARY KEY,
+    driverid VARCHAR(255),
+    vehicleid VARCHAR(255),
+    pedestrianid VARCHAR(255),
+	crossstreetname varchar(100), 
+    crashdate date,
+    agencyname VARCHAR(255),
+    localcasenumber varchar(250), -- Assuming it's numeric
+    acrsreporttype VARCHAR(255),
+    collisiontype VARCHAR(255),
+    trafficcontrol VARCHAR(255),
+    driversubstanceabuse varchar(250),
+    nonmotoristsubstanceabuse varchar(250),
+    driversinjuryseverity varchar(250),
+    speedlimit int,
+    pedestriansinjuryseverity varchar(250),
+    FOREIGN KEY (driverid) REFERENCES DriverDim(driverid),
+    FOREIGN KEY (vehicleid) REFERENCES VehicleDim(vehicleid),
+    FOREIGN KEY (pedestrianid) REFERENCES PedestrianDim(pedestrianid),
+    FOREIGN KEY (crossstreetname, crashdate) REFERENCES LocationDim(crossstreetname, crashdate)
+    
+);
