@@ -26,6 +26,10 @@
 
 • Injury Severity: Trends in the severity of injuries and factors contributing to serious or fatal injuries.
 
+### Final ETL-Pipeline Depolyment Architecture
+
+<img width="1048" alt="Screenshot 2025-01-06 at 1 26 03 AM" src="https://github.com/user-attachments/assets/86876b29-79b9-4213-9e47-49bf231dbb68" />
+
 ### Datasets:
 
 1. https://catalog.data.gov/dataset/crash-reporting-drivers-data
